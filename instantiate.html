@@ -24,7 +24,20 @@
     <script>
         
         function loadWASM(fileName) {
-                       
+            addToLog(`Fetching ${fileName}`)
+            fetch(fileName).then((response) => {
+                addToLog(`Fetched ${fileName}`)
+                return response.arrayBuffer()
+            })
+            .then((bytes) => {
+                addToLog(`Creating instance of ${fileName}`)
+                return WebAssembly.instantiate(bytes)
+                
+            })
+            .then((result) => {
+                addToLog(`Created ${result.instance}`)
+              
+            })
         }
 
         const log = document.querySelector('#log');

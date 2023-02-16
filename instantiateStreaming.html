@@ -24,7 +24,11 @@
     <script>
         
         function loadWASM(fileName) {
-           
+            addToLog(`Fetching ${fileName}`)
+            const fetchPromise = fetch(fileName)
+            WebAssembly.instantiateStreaming(fetchPromise).then((result) => {
+              addToLog(`Created ${result.instance}`)
+            })
         }
 
         const log = document.querySelector('#log');
